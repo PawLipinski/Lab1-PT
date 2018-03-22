@@ -1,1 +1,7 @@
 c:\users\pawel.lipinski\documents\visual studio 2013\Projects\Lab1-PT\Lab1-PT\bin\Debug\Lab1-PT.exe.config
+C:\Users\pawel.lipinski\Documents\Akademia\Lab1-PT\Lab1-PT\bin\Debug\Lab1-PT.exe.config
+C:\Users\pawel.lipinski\Documents\Akademia\Lab1-PT\Lab1-PT\obj\Debug\Lab1-PT.csprojResolveAssemblyReference.cache
+C:\Users\pawel.lipinski\Documents\Akademia\Lab1-PT\Lab1-PT\bin\Debug\Lab1-PT.exe
+C:\Users\pawel.lipinski\Documents\Akademia\Lab1-PT\Lab1-PT\bin\Debug\Lab1-PT.pdb
+C:\Users\pawel.lipinski\Documents\Akademia\Lab1-PT\Lab1-PT\obj\Debug\Lab1-PT.exe
+C:\Users\pawel.lipinski\Documents\Akademia\Lab1-PT\Lab1-PT\obj\Debug\Lab1-PT.pdb
