@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,7 +13,13 @@ namespace Lab1_PT
     {
         static void Main(string[] args)
         {
-            DirectoryPresenter("C:\\Users\\pawel.lipinski\\Downloads");
+            SerialiseFileCollection(args[0]);
+            List<FileSystemInfo> returnedInfo = DeserialiseFileCollection().ToList();
+
+            foreach (var item in returnedInfo)
+            {
+                System.Console.WriteLine(item.Name);
+            }
         }
 
         public static bool RecursiveSubdirectoriesPrinter(FileSystemInfo analysed, int tabLength = 0)
@@ -65,5 +72,29 @@ namespace Lab1_PT
                 MessageBox.Show("No such directory");
             }
         }
+
+        public static void SerialiseFileCollection(string pathToDirectory, string pathToFile = "fileStructure.data")
+        {
+            DirectoryInfo di = new DirectoryInfo(pathToDirectory);
+            List<FileSystemInfo> toSerialize = di.Root.EnumerateFileSystemInfos().ToList();
+
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            using (FileStream stream = File.Create(pathToFile))
+            {
+                formatter.Serialize(stream, toSerialize);
+            }
+        }
+
+        public static List<FileSystemInfo> DeserialiseFileCollection(string pathToFile = "fileStructure.data")
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            using (FileStream stream = File.OpenRead(pathToFile))
+            {
+                return (List<FileSystemInfo>)formatter.Deserialize(stream);
+            }
+        }
+
     }
 }
