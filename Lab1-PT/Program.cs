@@ -12,7 +12,39 @@ namespace Lab1_PT
     {
         static void Main(string[] args)
         {
-            DirectoryInfo di = new DirectoryInfo("C:\\Users\\pawel.lipinski\\Downloads");
+            DirectoryPresenter("C:\\Users\\pawel.lipinski\\Downloads");
+        }
+
+        public static bool RecursiveSubdirectoriesPrinter(FileSystemInfo analysed, int tabLength = 0)
+        {
+            bool hasChildren = false;
+
+            if ((analysed.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine(new String('\t', tabLength) + analysed.Name);
+                Console.ResetColor();
+
+                if (((DirectoryInfo)analysed).GetFileSystemInfos().Any())
+                {
+                    foreach (var item in ((DirectoryInfo)analysed).GetFileSystemInfos())
+                    {
+                        hasChildren = RecursiveSubdirectoriesPrinter(item, tabLength+1);
+                    }
+                }
+            }
+
+            else
+            {
+                System.Console.WriteLine(new String('\t', tabLength) + analysed.Name);
+            }
+
+            return hasChildren;
+        }
+
+        public static void DirectoryPresenter(string pathToDirectory)
+        {
+            DirectoryInfo di = new DirectoryInfo(pathToDirectory);
             FileSystemInfo[] internals;
 
             try
@@ -23,56 +55,15 @@ namespace Lab1_PT
 
                     foreach (var item in internals)
                     {
-                        if ((item.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            System.Console.WriteLine(item.Name);
-
-                            if (((DirectoryInfo)item).GetFileSystemInfos().Any())
-                            {
-                                Console.ResetColor();
-
-                                foreach (var element in ((DirectoryInfo)item).GetFileSystemInfos())
-                                {
-                                    System.Console.WriteLine("\t" + element.Name);
-                                    Console.ResetColor();
-                                }
-                            }
-                        }
-                        else
-                        {
-                            System.Console.WriteLine(item.Name);
-                        }
-
-                        Console.ResetColor();
-
+                        RecursiveSubdirectoriesPrinter(item);
                     }
+
                 }
             }
             catch
             {
                 MessageBox.Show("No such directory");
             }
-        }
-
-        public bool RecursiveSubdirectoriesPrinter(FileSystemInfo analysed, int tabLength = 0)
-        {
-            if ((analysed.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
-            {
-                if (((DirectoryInfo)analysed).GetFileSystemInfos().Any())
-                {
-                    foreach (var item in ((DirectoryInfo)analysed).GetFileSystemInfos())
-                    {
-                        bool hasChildren = RecursiveSubdirectoriesPrinter(item);
-                    }
-                }
-            }
-
-            else
-            {
-                System.Console.WriteLine();
-                return false;
-            } 
         }
     }
 }
