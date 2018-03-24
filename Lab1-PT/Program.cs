@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DirectoryInfoExtender;
 
 namespace Lab1_PT
 {
@@ -13,13 +14,15 @@ namespace Lab1_PT
     {
         static void Main(string[] args)
         {
-            SerialiseFileCollection(args[0]);
-            List<FileSystemInfo> returnedInfo = DeserialiseFileCollection().ToList();
+            //SerialiseFileCollection(args[0]);
+            //List<FileSystemInfo> returnedInfo = DeserialiseFileCollection().ToList();
 
-            foreach (var item in returnedInfo)
-            {
-                System.Console.WriteLine(item.Name);
-            }
+            //foreach (var item in returnedInfo)
+            //{
+            //    System.Console.WriteLine(item.Name);
+            //}
+
+            ShowSize(args[0]);
         }
 
         public static bool RecursiveSubdirectoriesPrinter(FileSystemInfo analysed, int tabLength = 0)
@@ -94,6 +97,16 @@ namespace Lab1_PT
             {
                 return (List<FileSystemInfo>)formatter.Deserialize(stream);
             }
+        }
+
+        public static void ShowSize(string path)
+        {
+            DirectoryInfo di = new DirectoryInfo(path);
+
+            double size = di.FilesSize();
+
+            System.Console.WriteLine(size);
+            
         }
 
     }

@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace DirectoryInfoExtender
 {
-    public static class Class1
+    public static class DirectoryInfoExtension
     {
-        public static long FilesSize(this string path)
+        public static double FilesSize(this DirectoryInfo directoryInfoObject)
         {
             long size = 0;
 
-            DirectoryInfo di = new DirectoryInfo(@path);
-
-            foreach (var item in di.GetFiles())
+            foreach (var item in directoryInfoObject.GetFiles())
             {
                 size += (long)item.Length;
             }
